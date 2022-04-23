@@ -1,1 +1,25 @@
-<p>user-list works!</p>
+<div class="user-list">
+  <h1>User list:</h1>
+  <div
+    #usersDataContainer="appResolve"
+    appResolve
+    [dbSharedResolve]="resolveBundle"
+  >
+    <div *ngIf="usersDataContainer.isResolving; else loadedData" class="user-list--loading">
+      <mat-spinner></mat-spinner>
+    </div>
+    <ng-template #loadedData>
+      <div class="user-list__content">
+        <ng-container *ngIf="usersDataContainer.hasError; else displayUsers">
+          {{ error$ | async }}
+        </ng-container>
+        <ng-template #displayUsers>
+          <ng-container *ngFor="let user of userList$ | async">
+            <app-user-item [user]="user" (clickOnUser)="navigateToUser($event)"></app-user-item>
+          </ng-container>
+        </ng-template>
+      </div>
+    </ng-template>
+  </div>
+</div>
+

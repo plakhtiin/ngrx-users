@@ -1,10 +1,18 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+
+import { selectUrl } from './store/router.selectors';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: [ './app.component.scss' ]
 })
 export class AppComponent {
-  title = 'ngrx-users';
+  selectedPage$ = this.store.select(selectUrl);
+
+  constructor(
+    private store: Store,
+  ) {
+  }
 }

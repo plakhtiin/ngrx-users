@@ -1,0 +1,129 @@
+{
+  "root": true,
+  "extends": ["plugin:@angular-eslint/recommended"],
+  "settings": {
+    "import/core-modules": ["rxjs/operators"],
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "tsconfig.app.json"
+      }
+    }
+  },
+  "plugins": ["import"],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "tsconfig.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ],
+      "rules": {
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ],
+        "import/prefer-default-export": 0,
+        "no-param-reassign": 0,
+        "no-underscore-dangle": "off",
+        "linebreak-style": 0,
+        "import/extensions": 0,
+        "import/no-extraneous-dependencies": 0,
+        "@typescript-eslint/explicit-function-return-type": [
+          "error",
+          {
+            "allowExpressions": true
+          }
+        ],
+        "@typescript-eslint/prefer-function-type": ["error"],
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": ["error"],
+        "@typescript-eslint/typedef": ["error"],
+        "consistent-return": ["error"],
+        "import/named": 0,
+        "import/no-internal-modules": "off",
+        "import/order": [
+          "error",
+          {
+            "groups": ["builtin", "external", "internal", "sibling", "parent"],
+            "newlines-between": "always"
+          }
+        ],
+        "sort-imports": [
+          "error",
+          {
+            "ignoreCase": true,
+            "ignoreDeclarationSort": true,
+            "ignoreMemberSort": true,
+            "memberSyntaxSortOrder": [
+              "all",
+              "multiple",
+              "single",
+              "none"
+            ],
+            "allowSeparatedGroups": true
+          }
+        ],
+        "@typescript-eslint/member-ordering": [
+          "warn",
+          {
+            "classes": ["field", "method"],
+            "default": [
+              "decorated-get",
+              "decorated-set",
+              "public-field",
+              "protected-field",
+              "private-field",
+
+              "constructor",
+
+              // Getters
+              "public-get",
+              "protected-get",
+              "private-get",
+
+              // Setters
+              "public-set",
+              "protected-set",
+              "private-set",
+
+              // Methods
+              "public-method",
+              "protected-method",
+              "private-method"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
+      "rules": {}
+    }
+  ]
+}

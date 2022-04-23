@@ -1,1 +1,22 @@
-<p>user-detail works!</p>
+<div class="user-detail">
+  <div
+    #usersDataContainer="appResolve"
+    appResolve
+    [dbSharedResolve]="resolveBundle"
+  >
+    <div *ngIf="usersDataContainer.isResolving; else loadedData">
+      <mat-spinner></mat-spinner>
+    </div>
+    <ng-template #loadedData>
+      <ng-container *ngIf="usersDataContainer.hasError; else displayUser">
+        {{ error$ | async }}
+      </ng-container>
+      <ng-template #displayUser>
+        <ng-container *ngIf="userDetails$ | async as userDetails">
+          <app-user-item [user]="userDetails"></app-user-item>
+        </ng-container>
+      </ng-template>
+    </ng-template>
+  </div>
+</div>
+

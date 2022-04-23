@@ -1,0 +1,17 @@
+<div class="user-item">
+  <mat-card class="example-card">
+    <mat-card-subtitle>User data</mat-card-subtitle>
+    <mat-card-content>
+      <mat-list role="list" (click)="clickOnUser.emit(userId)">
+        <ng-container *ngFor="let dataItem of displayUser">
+          <mat-list-item role="listitem">
+            <div class="user-item__data">
+              <div class="mat-body-strong">{{ dataItem.label }}: </div>
+              <div class="mat-body-strong">{{ dataItem.value }}</div>
+            </div>
+          </mat-list-item>
+        </ng-container>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,1 +1,33 @@
-<router-outlet></router-outlet>
+<div class="ngrx-users-main">
+  <ng-container *ngIf="selectedPage$ | async as selectedPage">
+    <mat-toolbar color="primary">
+      <mat-button-toggle-group [value]="selectedPage" name="chooseTab" aria-label="Choose the tab">
+        <mat-button-toggle
+            value="/home"
+            [routerLink]="['home']"
+            routerLinkActive="mat-button-toggle-checked"
+        >
+          Home
+        </mat-button-toggle>
+        <mat-button-toggle
+            value="/about"
+            [routerLink]="['about']"
+            routerLinkActive="mat-button-toggle-checked"
+        >
+          About
+        </mat-button-toggle>
+        <mat-button-toggle
+            value="/user/list"
+            [routerLink]="['user', 'list']"
+            routerLinkActive="mat-button-toggle-checked"
+        >
+          Users
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </mat-toolbar>
+  </ng-container>
+
+  <div class="ngrx-users-main__content mat-drawer-container">
+    <router-outlet></router-outlet>
+  </div>
+</div>

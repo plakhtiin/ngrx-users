@@ -1,0 +1,12 @@
+$main-header: 64px;
+$main-padding: 20px;
+
+.ngrx-users-main {
+  height: calc(100% - #{$main-header} - 2 * #{$main-padding});
+  text-align: center;
+
+  &__content {
+    min-height: 100%;
+    padding: #{$main-padding};
+  }
+}

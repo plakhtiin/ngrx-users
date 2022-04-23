@@ -1,0 +1,25 @@
+$padding: 20px;
+
+.user-list {
+  height: calc(100% - 2 * #{$padding});
+  overflow: auto;
+  padding: 20px;
+
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(320px, 1fr));
+    gap: 20px;
+
+    app-user-item:hover {
+      cursor: pointer;
+    }
+  }
+
+  &--loading {
+    width: 100%;
+
+    mat-spinner {
+      margin: 0 auto;
+    }
+  }
+}
