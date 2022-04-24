@@ -9,7 +9,9 @@
     </div>
     <ng-template #loadedData>
       <ng-container *ngIf="usersDataContainer.hasError; else displayUser">
-        {{ error$ | async }}
+        <div class="error">
+          {{ error$ | async }}
+        </div>
       </ng-container>
       <ng-template #displayUser>
         <ng-container *ngIf="userDetails$ | async as userDetails">
