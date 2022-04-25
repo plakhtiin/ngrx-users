@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Actions, ofType } from '@ngrx/effects';
+import { map } from 'rxjs/operators';
+import { Params } from '@angular/router';
 
 import {
   getUserById, getUserByIdCancel, getUserByIdFailed,
@@ -10,6 +12,7 @@ import {
 import { IUser } from '../../models/user';
 import { selectError, selectUser } from '../store/user.selectors';
 import { IResolveBundle } from '../../shared/directives/resolve.directive';
+import { selectRouteParams } from '../../store/router.selectors';
 
 @Component({
   selector: 'app-user-detail',
@@ -22,10 +25,14 @@ export class UserDetailComponent {
   error$: Observable<string> = this.store.select(selectError);
 
   resolveBundle: IResolveBundle[] = [{
-    dispatchRequest: () => this.store.dispatch(getUserById()),
+    dispatchRequest: (args: any[]) => {
+      const [id] = args[0];
+      this.store.dispatch(getUserById({ id }));
+    },
     dispatchRequestCancel: () => this.store.dispatch(getUserByIdCancel()),
     requestSuccess$: this.actions$.pipe(ofType(getUserByIdSuccess)),
     requestFailure$: this.actions$.pipe(ofType(getUserByIdFailed)),
+    dependencies: [this.store.select(selectRouteParams).pipe(map((params: Params) => params.id))]
   }];
 
   constructor(

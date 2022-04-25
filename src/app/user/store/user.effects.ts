@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { catchError, map, takeUntil, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { of } from 'rxjs';
-import { Params } from '@angular/router';
 import { TypedAction } from '@ngrx/store/src/models';
 
 import {
@@ -22,7 +21,6 @@ import { selectAllUsers, selectUser } from './user.selectors';
 
 import { IUser } from '../../models/user';
 import { IApplicationState } from '../../store/application-state';
-import { selectRouteParams } from '../../store/router.selectors';
 import { UserService } from '../user.service';
 
 @Injectable()
@@ -56,12 +54,12 @@ export class UserEffects {
   loadUserById$ = createEffect(() =>
     this.actions$.pipe(
       ofType(getUserById),
-      withLatestFrom(this.store.select(selectUser), this.store.select(selectRouteParams)),
-      mergeMap(([ action, currentUser, params ]: [ TypedAction<UserActionTypes.REQUEST_USER>, IUser, Params ]) => {
+      withLatestFrom(this.store.select(selectUser)),
+      mergeMap(([ action, currentUser ]: [ TypedAction<UserActionTypes.REQUEST_USER> & { id: number }, IUser ]) => {
           if (currentUser) {
             return of(getUserByIdSuccess({ user: currentUser }));
           } else {
-            return this.userService.getUserById(params.id).pipe(
+            return this.userService.getUserById(action.id).pipe(
               map((user: IUser) => getUserByIdSuccess({ user })),
               catchError((err: HttpErrorResponse) => of(getUserByIdFailed({ error: err.message }))),
               takeUntil(this.actions$.pipe(ofType(getUserByIdCancel))),
