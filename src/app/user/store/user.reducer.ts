@@ -26,11 +26,13 @@ export const userReducer = createReducer(
   on(UserActions.getUsers, (state, action) => ({
       ...state,
       isLoading: true,
+      error: '',
     })
   ),
   on(UserActions.getUserById, (state, action) => ({
       ...state,
       isLoading: true,
+      error: '',
     })
   ),
 
@@ -39,6 +41,7 @@ export const userReducer = createReducer(
       ...state,
       list: action.users,
       isLoading: false,
+      error: '',
     };
   }),
 
@@ -50,6 +53,7 @@ export const userReducer = createReducer(
         [action.user.id]: action.user,
       },
       isLoading: false,
+      error: '',
     };
   }),
 

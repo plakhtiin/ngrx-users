@@ -22,7 +22,7 @@ export const getUsersFailed = createAction(UserActionTypes.REQUEST_ALL_USERS_FAI
 
 export const getUsersCancel = createAction(UserActionTypes.REQUEST_ALL_USERS_CANCEL);
 
-export const getUserById = createAction(UserActionTypes.REQUEST_USER);
+export const getUserById = createAction(UserActionTypes.REQUEST_USER, props<{ id: number }>());
 
 export const getUserByIdSuccess = createAction(UserActionTypes.REQUEST_USER_SUCCESS, props<{ user: IUser }>(),);
 
